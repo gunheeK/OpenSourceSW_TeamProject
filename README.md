@@ -1,1 +1,1 @@
-# -OpenSourceSW_TeamProject
+# OpenSourceSW_TeamProject
