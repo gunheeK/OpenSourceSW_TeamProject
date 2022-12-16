@@ -38,5 +38,7 @@
 <br>
 
 ## ❓How to Use
-
-## 👕Result
+- anaconda prompt에 해당 명령어 입력
+    ```
+    python tools/train.py configs/_base_/default_runtime.py
+    ```
