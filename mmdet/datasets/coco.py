@@ -22,7 +22,7 @@ from .custom import CustomDataset
 @DATASETS.register_module()
 class CocoDataset(CustomDataset):
 
-    CLASSES = ('blouse', )
+    CLASSES = ('blouse')
     
     PALETTE = [(220, 20, 60)]
 
