@@ -5,13 +5,13 @@ img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
     dict(type='LoadImageFromFile'),
-    dict(type='LoadAnnotations', with_bbox=True),
+    dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
     dict(type='Resize', img_scale=(1333, 800), keep_ratio=True),
     dict(type='RandomFlip', flip_ratio=0.5),
     dict(type='Normalize', **img_norm_cfg),
     dict(type='Pad', size_divisor=32),
     dict(type='DefaultFormatBundle'),
-    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
+    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels', 'gt_masks']),
 ]
 test_pipeline = [
     dict(type='LoadImageFromFile'),
@@ -33,17 +33,17 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotation/train/',
+        ann_file=data_root + 'annotation/trian/blouse1_train.json',
         img_prefix=data_root + 'images/train/',
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotation/val/',
+        ann_file=data_root + 'annotation/val/blouse1_val.json',
         img_prefix=data_root + 'images/val/',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotation/test/',
+        ann_file=data_root + 'annotation/test/blouse1_test.json',
         img_prefix=data_root + 'images/test/',
         pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
@@ -94,7 +94,7 @@ model = dict(
             in_channels=256,
             fc_out_channels=1024,
             roi_feat_size=7,
-            num_classes=12,
+            num_classes=1,
             bbox_coder=dict(
                 type='DeltaXYWHBBoxCoder',
                 target_means=[0., 0., 0., 0.],
@@ -113,7 +113,7 @@ model = dict(
             num_convs=4,
             in_channels=256,
             conv_out_channels=256,
-            num_classes=12,
+            num_classes=1,
             loss_mask=dict(
                 type='CrossEntropyLoss', use_mask=True, loss_weight=1.0))),
     # model training and testing settings
@@ -173,7 +173,7 @@ model = dict(
 load_from = "https://download.openmmlab.com/mmdetection/v2.0/mask_rcnn/mask_rcnn_r50_fpn_1x_coco/mask_rcnn_r50_fpn_1x_coco_20200205-d4b0c5d6.pth"
 
 # optimizer
-optimizer = dict(type='SGD', lr=0.0025, momentum=0.9, weight_decay=0.0001)
+optimizer = dict(type='SGD', lr=0.00025, momentum=0.9, weight_decay=0.0001)
 optimizer_config = dict(grad_clip=None)
 # learning policy
 lr_config = dict(
@@ -210,4 +210,4 @@ mp_start_method = 'fork'
 #   - `enable` means enable scaling LR automatically
 #       or not by default.
 #   - `base_batch_size` = (8 GPUs) x (2 samples per GPU).
-auto_scale_lr = dict(enable=False, base_batch_size=16)
+auto_scale_lr = dict(enable=False, base_batch_size=1)

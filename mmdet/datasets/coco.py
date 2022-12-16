@@ -22,11 +22,9 @@ from .custom import CustomDataset
 @DATASETS.register_module()
 class CocoDataset(CustomDataset):
 
-    CLASSES = ('onepiece(dress)', 'coat', 'jacket', 'jumper', 'cardigan', 'blouse', 't-shirt', 'sweater', 'shirt', 'onepiece(jumpsuite)', 'pants', 'skirt')
+    CLASSES = ('blouse', )
     
-    PALETTE = [(220, 20, 60), (119, 11, 32), (0, 0, 142), (0, 0, 230),
-               (106, 0, 228), (0, 60, 100), (0, 80, 100), (0, 0, 70),
-               (0, 0, 192), (250, 170, 30), (100, 170, 30), (220, 220, 0)]
+    PALETTE = [(220, 20, 60)]
 
     def load_annotations(self, ann_file):
         """Load annotation from COCO style annotation file.
