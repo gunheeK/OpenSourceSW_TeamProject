@@ -42,3 +42,6 @@
     ```
     python tools/train.py configs/_base_/default_runtime.py
     ```
+    
+## 👕Result
+- 램 용량 부족으로 인해 학습 실패
